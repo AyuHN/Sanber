@@ -16,6 +16,7 @@ describe ('TC 1 -> Check login page', () => {
 describe ('TC 2 -> Click button Login without input User Name & Password', () => {
     it('cant be login when Credential NULL (not inputed yet)', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+        cy.wait(1000);
         cy.xpath("//input[@placeholder='Username']").should('be.visible');
         cy.get("input[placeholder='Password']").should('be.visible');
         cy.get("button[type='submit']").click();
@@ -43,10 +44,11 @@ describe ('TC 3 -> Login with valid User Name & Password', () => {
 describe ('TC 4 -> Login with invalid User Name & Password', () => {
     it('cant be login when credential wrong', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+        cy.wait(1000);
         cy.xpath("//input[@placeholder='Username']").type('Admin');
         cy.get("input[placeholder='Password']").type ('Admin123');
         cy.get("button[type='submit']").click();
-        cy.get("div[role='alert']").should('be.visible').and('contain.text','Invalid credential' );
+        cy.get("div[role='alert']").should('be.visible').and('contain.text','Invalid credentials' );
 
      
     })
@@ -71,7 +73,7 @@ describe ('TC 5 -> Click textlink forgot your password', () => {
 });
 
 describe ('TC 6 -> Check Forgot Pssword Page', () => {
-    it('Show Forgot Password Page', () => {
+    it.only('Show Forgot Password Page', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
         cy.wait(1000);
         cy.xpath("//input[@placeholder='Username']").type('Admin');
