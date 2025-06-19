@@ -12,6 +12,7 @@ class Login {
 
     verifycontainercredential() {
         //pastikan untuk container credential tampil di halaman login
+        cy.wait(10000);
         cy.get('.oxd-sheet.oxd-sheet--rounded.oxd-sheet--gutters.oxd-sheet--gray-lighten-2.orangehrm-demo-credentials')
             .should('be.visible')
             .and('contain.text','Username : Admin')
