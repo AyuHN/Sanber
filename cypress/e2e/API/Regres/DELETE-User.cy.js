@@ -2,19 +2,16 @@
 
 const headers = { 'x-api-key': 'reqres-free-v1' }
 
-describe('API testing', () => {
-  it('Post Register unsuccesful (missing password)', () => {
+describe('API Testing', () => {
+  it('PUT- Should delete user by ID', () => {
     cy.request({
-      method: 'POST',
-      url: 'https://reqres.in/api/login',
+      method: 'DELETE',
+      url: 'https://reqres.in/api/users/4', 
       headers: headers,
-      failOnStatusCode: false, 
-      body: {
-        email: 'sydney@fife'
-      }
+      failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(400)
-      expect(response.body).to.have.property('error', 'Missing password')
+      expect(response.status).to.eq(204)
+      expect(response.body).to.be.empty
     })
   })
 })
