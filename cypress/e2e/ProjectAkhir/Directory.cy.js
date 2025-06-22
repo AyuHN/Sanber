@@ -14,6 +14,13 @@ describe ('Fungsionalitas - Directory', () => {
         loginPage.inputPassword(loginData.validPassword);
         loginPage.loginbtn();
         loginPage.verifyLoginSuccess();
+        cy.intercept('GET', '**/api/v2/directory/employee*').as('getDirectory');
+        directory.Directorymenu();
+        cy.wait('@getDirectory').then((interception) => {
+            expect(interception.response.statusCode).to.eq(200);
+            const resultCount = interception.response.body.data.length;
+        cy.log('Jumlah data di Directory:', resultCount);
+        });
         directory.Directorymenu();
 
     });
@@ -50,7 +57,7 @@ describe ('Fungsionalitas - Directory', () => {
         
     })
 
-    it('TC5 - Negative - Cant Filter when Employe Name NULL', () =>  {
+    it.only('TC5 - Negative - Cant Filter when Employe Name NULL', () =>  {
         loginPage.verifyBaseUrl();
         loginPage.inputUsername(loginData.validUsername);
         loginPage.inputPassword(loginData.validPassword);
@@ -63,7 +70,7 @@ describe ('Fungsionalitas - Directory', () => {
 
     })
 
-    it.only('TC6 - Positive - Success Filter', () => {
+    it('TC6 - Positive - Success Filter', () => {
         loginPage.verifyBaseUrl();
         loginPage.inputUsername(loginData.validUsername);
         loginPage.inputPassword(loginData.validPassword);

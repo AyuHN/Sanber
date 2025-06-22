@@ -2,16 +2,24 @@
 
 class Directory {
     visit () {
-        cy.visit = ('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
     }
 
     Directorymenu() {
-        //Memastikan setelah di menu dashboard, menu Directory visible dan bisa di click.
-        cy.xpath("//span[normalize-space()='Directory']").click()
-        .should('be.visible')
-        .and('contain.text','Directory');
+    cy.xpath("//span[normalize-space()='Directory']")
+      .first() // ambil elemen pertama aja
+      .click()
+      .should('be.visible')
+      .and('contain.text','Directory');
     }
+
+    // Directorymenu() {
+    //     //Memastikan setelah di menu dashboard, menu Directory visible dan bisa di click.
+    //     cy.xpath("//span[normalize-space()='Directory']").click()
+    //     .should('be.visible')
+    //     .and('contain.text','Directory');
+    // }
 
     verifydirectorypage() {
         //verify sudah berhasil direct ke halaman directory, dan URL nya sudah tepat berada di /directory/viewDirectory
@@ -67,6 +75,21 @@ class Directory {
     cy.get('.oxd-autocomplete-text-input > input') 
       .should('be.visible')
       .and('have.value', '');
+    }
+
+    selectJobTitle(jobTitle) {
+    cy.get('.oxd-select-wrapper').eq(0).click();
+    cy.get('.oxd-select-dropdown')
+      .should('be.visible');
+    cy.contains('.oxd-select-option', jobTitle).click();
+
+    }
+    selectLocation(location) {
+    cy.get('.oxd-select-wrapper').eq(1).click();
+    cy.get('.oxd-select-dropdown')
+      .should('be.visible');
+    cy.contains('.oxd-select-option', location).click();
+    
     }
 
     Verifiyemployeenamefilled() {
