@@ -2,7 +2,7 @@
 
 const headers = { 'x-api-key': 'reqres-free-v1' }
 
-    describe ('API Testing', () => {
+    describe('API Testing', () => {
         it('Get API List User',() => {
             cy.request('GET', 'https://reqres.in/api/users?page=2')
             .then((response) => {
@@ -12,7 +12,7 @@ const headers = { 'x-api-key': 'reqres-free-v1' }
         })
     })
 
-    describe ('API Testing', () => {
+    describe('API Testing', () => {
         it('Get Single User',() => {
             cy.request('GET', 'https://reqres.in/api/users/2')
             .then((response) => {

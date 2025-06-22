@@ -1,9 +1,9 @@
-describe ('TC 1 (Positive) -> Check login page', () => {
-    it('should be succes show login page correctly', () => {
+describe ('TC 1 (Negative) -> Check login page', () => {
+    it.only('should be succes show login page correctly', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
         // cy.get(".orangehrm-login-logo") //.should('be.visible'); 
         cy.get(".oxd-sheet.oxd-sheet--rounded.oxd-sheet--gutters.oxd-sheet--gray-lighten-2.orangehrm-demo-credentials")
-            .should('be.visible').and('contain.text','Username : Admin').and('contain.text','Password : admin123');
+            .should('be.visible').and('contain.text','Username : admin').and('contain.text','Password : Admin123');
         cy.wait(10000);
         cy.xpath("//input[@placeholder='Username']").should('exist').and('be.visible').and('have.value', '');
         cy.get("input[placeholder='Password']").should('exist').and('be.visible').and('have.value', '');
@@ -13,6 +13,20 @@ describe ('TC 1 (Positive) -> Check login page', () => {
     })
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 describe ('TC 2 (Negative) -> Click button Login without input User Name & Password', () => {
     it('cant be login when Credential NULL (not inputed yet)', () => {

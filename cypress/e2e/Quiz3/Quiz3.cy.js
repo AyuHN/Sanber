@@ -1,6 +1,6 @@
 
 describe('TC 1 (Positive) -> Check login page', () => {
-  it('should load login page', () => {
+  it.only('should show login page', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
     cy.wait(1000);
     cy.get(".oxd-sheet.oxd-sheet--rounded.oxd-sheet--gutters.oxd-sheet--gray-lighten-2.orangehrm-demo-credentials");

@@ -58,7 +58,7 @@ class Login {
 
     inputUsername(username){
         //Memastikan bahwa field Username bisa di input.
-        cy.wait(10000);
+        cy.wait(1000);
         cy.get("input[placeholder='Username']")
             .clear()
             .type(username)

@@ -5,8 +5,8 @@ import loginData from "../../fixtures/loginData.json"
         beforeEach(() => {
             loginPage.visit();
         })
-    
-    it.only('TC1 - Positive - Check login page', () =>  {
+    //Hanya validasi elemen statis UI
+    it('TC1 - Positive - Check login page', () =>  {
         loginPage.verifyBaseUrl();
         loginPage.verifycontainercredential();
         loginPage.verifyUsernameInputKosong("");
@@ -15,6 +15,8 @@ import loginData from "../../fixtures/loginData.json"
         loginPage.TextlinkForgotpassword();
     });
 
+
+    //Tidak ada API request yang dikirim
     it('TC2 - Negative - Click button Login without input User Name & Password', () => {
         loginPage.verifyBaseUrl();
         loginPage.verifyUsernameInputKosong("");
@@ -25,14 +27,20 @@ import loginData from "../../fixtures/loginData.json"
     
     });
 
-    it('TC 3 -Positive - Login with valid username & password ', () => {
+    //yes, pakai intercept
+    it.only('TC3 - Positive - Login with valid username & password', () => {
         loginPage.verifyBaseUrl();
+        // Optional intercept kalau ingin pastikan dashboard API loaded
+        cy.intercept('GET', '**/api/v2/dashboard/employees/action-summary').as('getDashboardData');
         loginPage.inputUsername(loginData.validUsername);
         loginPage.inputPassword(loginData.validPassword);
         loginPage.loginbtn();
+        // Tunggu request dashboard selesai dan pastikan status 200
+        cy.wait('@getDashboardData').its('response.statusCode').should('eq', 200);
         loginPage.verifyLoginSuccess();
     });
 
+    //Tidak ada XHR yang bisa di-intercept (error muncul di UI)
     it('TC 4 - Negative - Login with invalid username & password', () => {
         loginPage.verifyBaseUrl();
         loginPage.inputUsername(loginData.invalidUsername);
@@ -41,6 +49,7 @@ import loginData from "../../fixtures/loginData.json"
         loginPage.verifyInvalidCredential();
     });
 
+    //Hanya pindah halaman, tanpa request penting (tidak load data API)
     it('TC 5 - Positive - Click textlink forgot your password', () => {
         loginPage.verifyBaseUrl();
         loginPage.inputUsername(loginData.invalidUsername);
